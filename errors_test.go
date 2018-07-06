@@ -96,6 +96,12 @@ func TestCause(t *testing.T) {
 	}, {
 		WithStack(io.EOF),
 		io.EOF,
+	}, {
+		NewCause(io.EOF, New("whoops")),
+		io.EOF,
+	}, {
+		NewCause(Wrap(io.EOF, "ignored"), New("whoops")),
+		io.EOF,
 	}}
 
 	for i, tt := range tests {
